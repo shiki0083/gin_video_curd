@@ -1,10 +1,10 @@
 package server
 
 import (
+	"github.com/gin-gonic/gin"
 	"os"
 	"singo/api"
 	"singo/middleware"
-	"github.com/gin-gonic/gin"
 )
 
 // NewRouter 路由配置
@@ -35,8 +35,8 @@ func NewRouter() *gin.Engine {
 			auth.GET("user/me", api.UserMe)
 			auth.DELETE("user/logout", api.UserLogout)
 		}
-		
-		v1.POST("video",api.CreateVideo)
+
+		v1.POST("video", api.CreateVideo)
 	}
 	return r
 }
