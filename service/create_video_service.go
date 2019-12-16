@@ -12,7 +12,7 @@ type CreateVideoService struct {
 }
 
 // Create 创建视频  //接受一个请求 -->通过序列化器 --> 返回一个JSON
-func (service *CreateVideoService) Create() serializer.Response {
+func (service *CreateVideoService) Create() serializer.Response { //====>给结构体定义方法 只好这么做
 	video := model.Video{
 		Title: service.Title,
 		Info:  service.Info,

@@ -1,3 +1,9 @@
+/*
+ * @Author: mikey.zhaopeng
+ * @Date: 2019-12-13 14:53:03
+ * @Last Modified by: mikey.zhaopeng
+ * @Last Modified time: 2019-12-13 15:50:44
+ */
 package serializer
 
 import "singo/model"
@@ -10,7 +16,8 @@ type Video struct {
 	CreatedAt int64  `json:"created_at"`
 }
 
-// BuildVideo 序列化用户                MVC 模式下 这个部分本来是后端展示的代码 ---- 前后端分离的情况下 这就就是
+// BuildVideo 序列化视频                MVC 模式下 这个部分本来是后端展示的代码 ---- 前后端分离的情况下 这就就是
+//               进                出
 func BuildVideo(item model.Video) Video {
 	return Video{
 		ID:        item.ID, // model模板内自带的
@@ -18,4 +25,14 @@ func BuildVideo(item model.Video) Video {
 		Info:      item.Info,
 		CreatedAt: item.CreatedAt.Unix(), // model模板内自带的
 	}
+}
+
+// BuildVideos 序列化视频列表
+func BuildVideos(items []model.Video) []Video {
+	var videos []Video //指的就是序列化好的JSON数组
+	for _, item := range items {
+		video := BuildVideo(item)
+		videos = append(videos, video)
+	}
+	return videos //指的就是序列化好的JSON数组 --> 导出了
 }

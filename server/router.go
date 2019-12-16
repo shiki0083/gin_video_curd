@@ -35,8 +35,11 @@ func NewRouter() *gin.Engine {
 			auth.GET("user/me", api.UserMe)
 			auth.DELETE("user/logout", api.UserLogout)
 		}
-
 		v1.POST("video", api.CreateVideo)
+		v1.GET("video", api.ShowVideo) //URL 参数通过 DefaultQuery 或 Query 方法获取
+		v1.GET("videoList", api.ListVideo)
+		v1.GET("videoUpate", api.UpdateVideo) //URL 参数通过 DefaultQuery 或 Query 方法获取
+		v1.GET("videoDelete", api.DeleteVideo)
 	}
 	return r
 }
