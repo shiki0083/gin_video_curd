@@ -1,10 +1,10 @@
 package server
 
 import (
-	"github.com/gin-gonic/gin"
 	"os"
 	"singo/api"
 	"singo/middleware"
+	"github.com/gin-gonic/gin"
 )
 
 // NewRouter 路由配置
@@ -21,7 +21,7 @@ func NewRouter() *gin.Engine {
 	{
 		v1.POST("ping", api.Ping)
 
-		// 用户登录
+		// 用户注册
 		v1.POST("user/register", api.UserRegister)
 
 		// 用户登录
@@ -35,11 +35,11 @@ func NewRouter() *gin.Engine {
 			auth.GET("user/me", api.UserMe)
 			auth.DELETE("user/logout", api.UserLogout)
 		}
-		v1.POST("video", api.CreateVideo)
-		v1.GET("video", api.ShowVideo) //URL 参数通过 DefaultQuery 或 Query 方法获取
+		v1.POST("createVideo", api.CreateVideo)
+		v1.POST("showVideo", api.ShowVideo) //URL 参数通过 DefaultQuery 或 Query 方法获取
 		v1.GET("videoList", api.ListVideo)
-		v1.GET("videoUpate", api.UpdateVideo) //URL 参数通过 DefaultQuery 或 Query 方法获取
-		v1.GET("videoDelete", api.DeleteVideo)
+		v1.POST("videoUpate", api.UpdateVideo) //URL 参数通过 DefaultQuery 或 Query 方法获取
+		v1.POST("videoDelete", api.DeleteVideo)
 	}
 	return r
 }

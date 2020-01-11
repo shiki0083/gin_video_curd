@@ -10,8 +10,8 @@ type User struct {
 	gorm.Model
 	UserName       string
 	PasswordDigest string
-	Nickname       string
 	Status         string
+	Token          string
 	Avatar         string `gorm:"size:1000"`
 }
 
