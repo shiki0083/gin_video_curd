@@ -1,16 +1,19 @@
 package service
 
 import (
-	"singo/middleware"
+	"fmt"
 	"singo/model"
 	"singo/serializer"
+
+	"singo/middleware/jwtauth"
+
+	"github.com/dgrijalva/jwt-go"
 )
 
 // UserRegisterService 管理用户注册服务
 type UserRegisterService struct {
 	// Nickname        string `form:"nickname" json:"nickname" binding:"required,min=2,max=30"`
 	UserName        string `form:"userName" json:"user_name" binding:"required,min=5,max=30"`
-	Token           string `form:"token" json:"token" binding:"required"`
 	Password        string `form:"password" json:"password" binding:"required,min=8,max=40"`
 	PasswordConfirm string `form:"passwordConfirm" json:"password_confirm" binding:"required,min=8,max=40"`
 }
@@ -38,10 +41,28 @@ func (service *UserRegisterService) valid() *serializer.Response {
 
 // Register 用户注册
 func (service *UserRegisterService) Register() serializer.Response {
+	j := &jwtauth.JWT{
+		[]byte("test"),
+	}
+	claims := jwtauth.CustomClaims{
+		1,
+		service.Password,
+		service.UserName,
+		jwt.StandardClaims{
+			ExpiresAt: 15000, //time.Now().Add(24 * time.Hour).Unix()
+			Issuer:    "test",
+		},
+	}
+
+	token, err := j.CreateToken(claims)
+	if err != nil {
+		fmt.Printf("fuck")
+	}
+
 	user := model.User{
 		UserName: service.UserName,
 		Status:   model.Active,
-		Token:    middleware.NewJWT(),
+		Token:    token,
 	}
 	// 表单验证
 	if err := service.valid(); err != nil {

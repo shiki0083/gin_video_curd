@@ -9,6 +9,7 @@ type User struct {
 	Status    string `json:"status"`
 	Avatar    string `json:"avatar"`
 	CreatedAt int64  `json:"created_at"`
+	Token     string `json:"token"`
 }
 
 // BuildUser 序列化用户
@@ -18,6 +19,7 @@ func BuildUser(user model.User) User {
 		UserName:  user.UserName,
 		Status:    user.Status,
 		Avatar:    user.Avatar,
+		Token:     user.Token,
 		CreatedAt: user.CreatedAt.Unix(),
 	}
 }
